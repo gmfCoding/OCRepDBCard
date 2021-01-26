@@ -1,4 +1,5 @@
 local world = program.rep_world
+local db = program.rep_db
 main = {}
 
 local RepNames = {}
@@ -20,13 +21,15 @@ RepApp.Conf.PatternPos = nil
 local repBlockNames = {}
 
 function main.Main()
+    print("")
     print("Welcome to the Replicator Interface ;)\n")
 
     print("quick -- setup alt: use the attached database (first 9 slots only) to load positions")
-    print("setup -- you will need to setup the position of the machines before anything else.\n")
-    print("exec -- run the main program.\n")
-    print("show -- prints the configs\n")
+    print("setup -- you will need to setup the position of the machines before anything else.")
+    print("exec -- run the main program.")
+    print("show -- prints the configs")
     while RepApp.alive == true do
+        io.write("rep>")
         local ui = io.read();
         if ui == "setup" then Setup();
         elseif ui == "quick" then main.DBSetup()
