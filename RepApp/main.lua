@@ -35,6 +35,7 @@ function main.Main()
         if ui == "setup" then Setup();
         elseif ui == "quick" then main.DBSetup()
         elseif ui == "exec" then program.rep_base.Init()
+        elseif ui == "quit" then RepApp.alive = false
         end
     end
 end
