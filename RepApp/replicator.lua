@@ -1,5 +1,4 @@
 local debug = require("component").debug
-local main = require("main");
 local world = debug.getWorld();
 
 Replication = {}
@@ -29,7 +28,7 @@ end
 
 function FindPatterns()
     ClearPatterns();
-    local pnbt = world.getTileNBT(Replication.patPos[1]), Replication.patPos[2], Replication.patPos[3]);
+    local pnbt = world.getTileNBT(Replication.patPos[1], Replication.patPos[2], Replication.patPos[3]);
 
     for i = 1,pnbt.value.patterns.value.n do
         val = pnbt.value.patterns.value[i].value

@@ -1,6 +1,8 @@
+
+
 local tsave = require("tableToFile");
 local debug = require("component").debug;
-local REP = require("replicator")
+
 local db = component.database;
 local world = debug.getWorld();
 
