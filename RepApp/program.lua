@@ -1,3 +1,5 @@
+module("program", package.seeall)
+
 tsave = require("tableToFile"); 
 component = require("component");
 rep_debug = component.debug;

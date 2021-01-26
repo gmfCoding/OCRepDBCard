@@ -1,3 +1,4 @@
+module("replicator", package.seeall)
 local debug = rep_debug;
 local world = rep_world;
 

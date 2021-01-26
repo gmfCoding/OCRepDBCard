@@ -1,3 +1,4 @@
+module("main", package.seeall)
 local world = rep_world
 main = {}
 main.RepNames = {}
