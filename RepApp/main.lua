@@ -39,21 +39,22 @@ function Setup()
 end
 
 function AskLocation(ask)
-    io.write(ask.." location couldn't be verified. \nINPUT: X Y Z\n");
+    print(ask.." location couldn't be verified. \nINPUT: X Y Z\n");
     local rd = io.read();
     local rep_pos = {}
 
     for i,d in string.gmatch(rd, "%S+") do
-        table.insert(rep_pos, i);
+        table.insert(rep_pos, tonumber(i));
     end
+
     if tablelength(rep_pos) >= 3 then
         local verified = VerifyTEPos(ask, rep_pos[1], rep_pos[2], rep_pos[3])
         if verified then
-            io.write("Block "..ask.." found at ".. rep_pos)
+            print("Block "..ask.." found at ".. rep_pos)
             return rep_pos
         end
-        io.write("Block "..ask.." not found at ".. rep_pos)
     end
+    print("Block "..ask.." not found at ".. rep_pos)
     return nil
 end
 
