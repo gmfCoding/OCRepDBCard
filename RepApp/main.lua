@@ -19,12 +19,7 @@ RepApp.Conf.PatternPos = nil
 
 local repBlockNames = {}
 
-main.RepApp = RepApp;
-main.Main = Main
-main.DBSetup = DBSetup
-main.Setup = Setup
-
-local function Main()
+function main.Main()
     print("Welcome to the Replicator Interface ;)\n")
 
     print("quick -- setup alt: use the attached database (first 9 slots only) to load positions")
@@ -34,13 +29,13 @@ local function Main()
     while RepApp.alive == true do
         local ui = io.read();
         if ui == "setup" then Setup();
-        elseif ui == "quick" then DBSetup()
+        elseif ui == "quick" then main.DBSetup()
         elseif ui == "exec" then rep_base.Init()
         end
     end
 end
 
-local function DBSetup()
+function main.DBSetup()
     DBLoc = {}
     DBLoc.pat = {}
     DBLoc.scan = {}
@@ -73,9 +68,9 @@ local function DBSetup()
     RepApp.Conf.PatternPos = DBLoc.pat
 end
 
-local function Setup()
-    RepApp.Conf.ReplicatorPos = AskLocation(RepNames.ic2rep)
-    RepApp.Conf.PatternPos = AskLocation(RepNames.ic2pat)
+function main.Setup()
+    RepApp.Conf.ReplicatorPos = main.AskLocation(RepNames.ic2rep)
+    RepApp.Conf.PatternPos = main.AskLocation(RepNames.ic2pat)
     
     if RepApp.Conf.ReplicatorPos == nil or RepApp.Conf.PatternPos == nil then
         print("Couldn't find Replicator or Pattern Storage. \n");
@@ -83,7 +78,7 @@ local function Setup()
     end
 end
 
-local function AskLocation(ask)
+function main.AskLocation(ask)
     print(ask.." location couldn't be verified. \nINPUT: X Y Z\n");
     local rd = io.read();
     local rep_pos = {}
@@ -148,5 +143,4 @@ local function tablelength(T)
     end
     return count
 end
-
 return main;

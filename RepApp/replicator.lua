@@ -1,5 +1,3 @@
-
-
 local debug = program.rep_debug;
 local world = program.rep_world;
 
