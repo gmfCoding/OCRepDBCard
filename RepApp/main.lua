@@ -1,6 +1,11 @@
 local tsave = require("tableToFile");
 local debug = require("component").debug;
+local db = component.database;
 local world = debug.getWorld();
+
+RepNames = {}
+RepNames.ic2rep = "ic2:replicator";
+RepNames.chest = "minecraft:chest";
 
 RepApp = {}
 
@@ -16,19 +21,58 @@ repBlockNames = {}
 function Main()
     io.write("Welcome to the Replicator Interface ;)\n")
 
+    io.write("quick -- setup alt: use the attached database (first 9 slots only) to load positions")
     io.write("setup -- you will need to setup the position of the machines before anything else.\n")
     io.write("exec -- run the main program.\n")
     io.write("show -- prints the configs\n")
     local ui = io.read();
 
     if ui == "setup" then Setup();
-    elseif ui == "exec" then 
+    elseif ui == "quick" then 
+        
     end
 end
 
+function DBGetSub(name)
+    
+end
+
+function DBSetup()
+    DBLoc = {}
+    DBLoc.pat = {}
+    DBLoc.scan = {}
+    DBLoc.rep = {}
+    for i = 1,9,1 do 
+        temp = db.get(i)["name"]
+        if temp == "minecraft:paper" then
+            dbtemp = nil
+            local counter = 0
+            for i,d in string.gmatch(temp["label"], "%S+") do 
+                if dbtemp == nil then
+                    if i == "pat" then
+                        dbtemp = DBLoc.pat;
+                    elseif i == "scan" then
+                        dbtemp = DBLoc.scan;
+                    elseif i == "rep" then
+                        dbtemp = DBLoc.rep;
+                    end
+                end
+                dbtemp["test"] = i;
+                counter = counter + 1;
+            end
+            dbtemp = nil
+        end 
+    end
+    print(DBLoc)
+end
+    
+RepApp.Conf.ReplicatorPos = AskLocation(RepNames.ic2rep)
+RepApp.Conf.SearchInvPos = AskLocation(RepNames.chest)
+end
+
 function Setup()
-    RepApp.Conf.ReplicatorPos = AskLocation("ic2:replicator")
-    RepApp.Conf.SearchInvPos = AskLocation("minecraft:chest")
+    RepApp.Conf.ReplicatorPos = AskLocation(RepNames.ic2rep)
+    RepApp.Conf.SearchInvPos = AskLocation(RepNames.chest)
     
     if RepApp.Conf.ReplicatorPos == nil or RepApp.Conf.SearchInvPos == nil then
         io.write("Couldn't find Replicator or Search Chest. \n");
@@ -50,7 +94,7 @@ function AskLocation(ask)
     if tablelength(rep_pos) >= 3 then
         local verified = VerifyTEPos(ask, rep_pos[1], rep_pos[2], rep_pos[3])
         if verified then
-            print("Block "..ask.." found at ".. rep_pos)
+            print("Block ".. ask .." found at ".. rep_pos[1] .. ",".. rep_pos[1] .. ",".. rep_pos[1])
             return rep_pos
         end
     end

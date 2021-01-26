@@ -2,7 +2,11 @@ local debug = require("component").debug
 local main = require("main");
 local world = debug.getWorld();
 
-ic2repID = "ic2:replicator";
+Replication = {}
+Replication.patterns = {}
+Replication.repPos = {}
+Replication.patPos = {}
+Replication.
 local ie_hf = {"immersiveengineering:metal_decoration0", 5, 2}; 
 local te_f = {"thermalexpansion:frame", 0, 0};
 
