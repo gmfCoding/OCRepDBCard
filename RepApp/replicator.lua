@@ -1,5 +1,5 @@
-local debug = require("component").debug
-local world = debug.getWorld();
+local debug = rep_debug;
+local world = rep_world;
 
 Replication = {}
 Replication.patterns = {}
