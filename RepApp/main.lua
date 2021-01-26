@@ -39,19 +39,20 @@ function Setup()
 end
 
 function AskLocation(ask)
-    io.write(ask.." location couldn't be verified. INPUT: X Y Z");
+    io.write(ask.." location couldn't be verified. \nINPUT: X Y Z\n");
     local rd = io.read();
     local rep_pos = {}
 
     for i,d in string.gmatch(rd, "%S+") do
-        table.insert(rep_pos, d);
+        table.insert(rep_pos, i);
     end
     if tablelength(rep_pos) >= 3 then
         local verified = VerifyTEPos(ask, rep_pos[1], rep_pos[2], rep_pos[3])
         if verified then
+            io.write("Block "..ask.." found at ".. rep_pos)
             return rep_pos
         end
-
+        io.write("Block "..ask.." not found at ".. rep_pos)
     end
     return nil
 end
@@ -62,7 +63,7 @@ function VerifyTEPos(ask, x, y, z)
     end
 
     local bName = world.getTileNBT(x, y, z).value.id.value;
-
+    
     if bName == ask then
         return true;
     end
