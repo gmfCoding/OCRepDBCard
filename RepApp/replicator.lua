@@ -1,6 +1,7 @@
-module("replicator", package.seeall)
-local debug = rep_debug;
-local world = rep_world;
+
+
+local debug = program.rep_debug;
+local world = program.rep_world;
 
 Replication = {}
 Replication.patterns = {}

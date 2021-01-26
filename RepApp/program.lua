@@ -1,13 +1,15 @@
-module("program", package.seeall)
+program = {}
 
-tsave = require("tableToFile"); 
-component = require("component");
-rep_debug = component.debug;
-rep_db = component.database;
-rep_world = rep_debug.getWorld();
+program.tsave = require("tableToFile"); 
+program.component = require("component");
 
-rep_main = require("main")
-rep_base = require("replicator")
+program.rep_db = component.database;
+program.rep_debug = component.debug;
+program.rep_world = component.debug.getWorld();
 
+program.rep_main = require("main")
+program.rep_base = require("replicator")
 
-mainmod.Main();
+program.rep_main.Main();
+
+return program;

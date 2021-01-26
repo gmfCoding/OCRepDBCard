@@ -1,5 +1,4 @@
-module("main", package.seeall)
-local world = rep_world
+local world = program.rep_world
 main = {}
 main.RepNames = {}
 RepNames.ic2rep = "ic2:replicator";
