@@ -42,25 +42,31 @@ function AskLocation(ask)
     io.write(ask.." location couldn't be verified. INPUT: X Y Z");
     local rd = io.read();
     local rep_pos = {}
-    
+
     for i,d in string.gmatch(rd, "%S+") do
         table.insert(rep_pos, d);
     end
     if tablelength(rep_pos) >= 3 then
-        local verified = VerifyRepPos(ask, rep_pos[1], rep_pos[2], rep_pos[3])
+        local verified = VerifyTEPos(ask, rep_pos[1], rep_pos[2], rep_pos[3])
         if verified then
             return rep_pos
         end
+
     end
     return nil
 end
 
-function VerifyRepPos(ask, x, y, z)
-    local bName = world.getBlockId(x,y,z);
-    if bName ~= ask then
-        return false;
+function VerifyTEPos(ask, x, y, z)
+    if ~world.hasTileEntity(x, y, z) then
+        return false
     end
-    return true;
+
+    local bName = world.getTileNBT(x, y, z);
+
+    if bName == ask then
+        return true;
+    end
+    return false;
 end
 
 function RepApp.LoadLocations()
