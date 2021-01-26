@@ -14,7 +14,7 @@ replication.patPos = {}
 local patterns = {}
 
 function this.Init()
-    replication.patPos = mainmod.RepApp.Conf.PatternPos
+    replication.patPos = program.rep_main.RepApp.Conf.PatternPos
     FindPatterns()
 
     for i, d in pairs(patterns) do

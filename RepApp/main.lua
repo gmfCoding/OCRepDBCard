@@ -9,6 +9,7 @@ RepNames.ic2rep = "ic2:replicator";
 RepNames.ic2pat = "ic2:pattern_storage";
 
 local RepApp = {}
+main.RepApp = RepApp
 
 RepApp.isSafe = false;
 RepApp.init = false;
@@ -33,7 +34,7 @@ function main.Main()
         local ui = io.read();
         if ui == "setup" then Setup();
         elseif ui == "quick" then main.DBSetup()
-        elseif ui == "exec" then rep_base.Init()
+        elseif ui == "exec" then program.rep_base.Init()
         end
     end
 end
