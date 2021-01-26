@@ -1,5 +1,5 @@
 local tsave = require("tableToFile");
-local debug = require("debug");
+local debug = require("component").debug;
 local world = debug.getWorld();
 
 RepApp = {}
