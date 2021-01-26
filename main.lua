@@ -13,7 +13,6 @@ RepApp.Conf.ReplicatorPos = {}
 
 repBlockNames = {}
 
-function 
 
 function Main()
     io.write("Welcome to the Replicator Interface ;)")
