@@ -12,7 +12,7 @@ Replication.patPos = {}
 patterns = {}
 
 function Init()
-    Replication.patPos = main.RepApp.Conf.PatternPos
+    Replication.patPos = mainmod.RepApp.Conf.PatternPos
     FindPatterns()
 
     for i, d in pairs(patterns) do
