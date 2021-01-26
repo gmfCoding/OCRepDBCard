@@ -28,7 +28,7 @@ function Main()
     local ui = io.read();
 
     if ui == "setup" then Setup();
-    elseif ui == "quick" then 
+    elseif ui == "quick" then DBSetup()
         
     end
 end
