@@ -1,8 +1,6 @@
 
 
-local tsave = require("tableToFile");
-local debug = require("component").debug;
-
+local debug = component.debug;
 local db = component.database;
 local world = debug.getWorld();
 
