@@ -1,5 +1,5 @@
 local debug = require("component").debug
-local ttf = require()
+local main = require("main");
 local world = debug.getWorld();
 
 ic2repID = "ic2:replicator";
