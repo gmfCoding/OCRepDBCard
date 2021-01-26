@@ -1,3 +1,4 @@
+local shell = require("shell")
 shell.execute("cd RepApp");
 shell.execute("wget -f https://raw.githubusercontent.com/gmfCoding/OC_IC2Replicator/master/RepApp/main.lua main.lua");
 shell.execute("wget -f https://raw.githubusercontent.com/gmfCoding/OC_IC2Replicator/master/RepApp/replicator.lua replicator.lua");
