@@ -1,10 +1,10 @@
 local world = rep_world
-
-RepNames = {}
+main = {}
+main.RepNames = {}
 RepNames.ic2rep = "ic2:replicator";
 RepNames.ic2pat = "ic2:pattern_storage";
 
-RepApp = {}
+main.RepApp = {}
 
 RepApp.isSafe = false;
 RepApp.init = false;
@@ -16,7 +16,7 @@ RepApp.Conf.PatternPos = nil
 
 repBlockNames = {}
 
-function Main()
+function main.Main()
     print("Welcome to the Replicator Interface ;)\n")
 
     print("quick -- setup alt: use the attached database (first 9 slots only) to load positions")
@@ -32,7 +32,7 @@ function Main()
     end
 end
 
-function DBSetup()
+function main.DBSetup()
     DBLoc = {}
     DBLoc.pat = {}
     DBLoc.scan = {}
@@ -65,7 +65,7 @@ function DBSetup()
     RepApp.Conf.PatternPos = DBLoc.pat
 end
 
-function Setup()
+function main.Setup()
     RepApp.Conf.ReplicatorPos = AskLocation(RepNames.ic2rep)
     RepApp.Conf.PatternPos = AskLocation(RepNames.ic2pat)
     
@@ -75,7 +75,7 @@ function Setup()
     end
 end
 
-function AskLocation(ask)
+function main.AskLocation(ask)
     print(ask.." location couldn't be verified. \nINPUT: X Y Z\n");
     local rd = io.read();
     local rep_pos = {}
@@ -95,7 +95,7 @@ function AskLocation(ask)
     return nil
 end
 
-function VerifyTEPos(ask, x, y, z)
+function main.VerifyTEPos(ask, x, y, z)
     if world.hasTileEntity(x, y, z) == false then
         return false
     end
@@ -109,34 +109,36 @@ function VerifyTEPos(ask, x, y, z)
 end
 
 -- Block Location Serialisation
-function RepApp.LoadLocations()
+function main.RepApp.LoadLocations()
     tsave.load(RepApp.Conf, "config.table")
 end
 
-function RepApp.SaveLocations()
+function main.RepApp.SaveLocations()
     tsave.save(RepApp.Conf, "config.table");
 end
 
 -- Pattern Serialisation
-function RepApp.LoadPatterns()
+function main.RepApp.LoadPatterns()
     repBlockNames = tsave.load("replications.table");
     return repBlockNames;
 end
 
-function RepApp.SaveLoadPatterns()
+function main.RepApp.SaveLoadPatterns()
     tsave.save(repBlockNames, "replications.table");
 end
 
-function RepApp.AddBlock(blockName, repData)
+function main.RepApp.AddBlock(blockName, repData)
     Load();
     repBlockNames[blockName] = repData;
     Save();
 end
 
-function tablelength(T)
+function main.tablelength(T)
     local count = 0
     for _ in pairs(T) do 
         count = count + 1 
     end
     return count
 end
+
+return main;
