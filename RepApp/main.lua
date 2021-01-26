@@ -2,7 +2,6 @@ local tsave = require("tableToFile");
 local debug = require("debug");
 local world = debug.getWorld();
 
-
 RepApp = {}
 
 RepApp.isSafe = false;
@@ -73,7 +72,9 @@ function RepApp.SaveLoadPatterns()
     tsave.save(repBlockNames, "replications.table");
 end
 
-function RepApp.ChestGetAddBlocks()
+function RepApp.ChestGetAddBlocks() 
+    -- asd
+end
 -- Load table
 
 -- Get items in the chest
@@ -82,7 +83,7 @@ function RepApp.ChestGetAddBlocks()
 -- Add them to repBlockNames where localised name is key and data is value
 
 -- Save table
-end
+
 
 function RepApp.AddBlock(blockName, repData)
     Load();
@@ -92,7 +93,9 @@ end
 
 function tablelength(T)
     local count = 0
-    for _ in pairs(T) do count = count + 1 end
+    for _ in pairs(T) do 
+        count = count + 1 
+    end
     return count
 end
 
