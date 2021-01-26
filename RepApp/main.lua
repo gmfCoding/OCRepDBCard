@@ -24,6 +24,7 @@ function Main()
 
     if ui == "setup" then Setup();
     elseif ui == "exec" then 
+    end
 end
 
 function Setup()
@@ -95,4 +96,6 @@ function tablelength(T)
     return count
   end
 
+
 Main();
+end
