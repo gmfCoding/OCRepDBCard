@@ -24,7 +24,6 @@ main.Main = Main
 main.DBSetup = DBSetup
 main.Setup = Setup
 
-
 local function Main()
     print("Welcome to the Replicator Interface ;)\n")
 
@@ -118,16 +117,16 @@ local function VerifyTEPos(ask, x, y, z)
 end
 
 -- Block Location Serialisation
-local function RepApp.LoadLocations()
+function RepApp.LoadLocations()
     tsave.load(RepApp.Conf, "config.table")
 end
 
-local function RepApp.SaveLocations()
+function RepApp.SaveLocations()
     tsave.save(RepApp.Conf, "config.table");
 end
 
 -- Pattern Serialisation
-local function RepApp.LoadPatterns()
+function RepApp.LoadPatterns()
     repBlockNames = tsave.load("replications.table");
     return repBlockNames;
 end
@@ -136,7 +135,7 @@ function RepApp.SaveLoadPatterns()
     tsave.save(repBlockNames, "replications.table");
 end
 
-local function RepApp.AddBlock(blockName, repData)
+function RepApp.AddBlock(blockName, repData)
     Load();
     repBlockNames[blockName] = repData;
     Save();
