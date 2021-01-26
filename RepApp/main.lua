@@ -1,40 +1,40 @@
 local tsave = require("tableToFile");
 local debug = require("component").debug;
+local REP = require("replicator")
 local db = component.database;
 local world = debug.getWorld();
 
 RepNames = {}
 RepNames.ic2rep = "ic2:replicator";
-RepNames.chest = "minecraft:chest";
+RepNames.ic2pat = "ic2:pattern_storage";
 
 RepApp = {}
 
 RepApp.isSafe = false;
 RepApp.init = false;
+RepApp.alive = true;
 RepApp.Conf = {}
-RepApp.Conf.SearchInvPos = {}
-RepApp.Conf.ReplicatorPos = {}
+RepApp.Conf.ReplicatorPos = nil
+RepApp.Conf.ScannerPos = nil
+RepApp.Conf.PatternPos = nil
 
 repBlockNames = {}
 
 
 function Main()
-    io.write("Welcome to the Replicator Interface ;)\n")
+    print("Welcome to the Replicator Interface ;)\n")
 
-    io.write("quick -- setup alt: use the attached database (first 9 slots only) to load positions")
-    io.write("setup -- you will need to setup the position of the machines before anything else.\n")
-    io.write("exec -- run the main program.\n")
-    io.write("show -- prints the configs\n")
-    local ui = io.read();
-
-    if ui == "setup" then Setup();
-    elseif ui == "quick" then DBSetup()
-        
+    print("quick -- setup alt: use the attached database (first 9 slots only) to load positions")
+    print("setup -- you will need to setup the position of the machines before anything else.\n")
+    print("exec -- run the main program.\n")
+    print("show -- prints the configs\n")
+    while RepApp.alive == true do
+        local ui = io.read();
+        if ui == "setup" then Setup();
+        elseif ui == "quick" then DBSetup()
+        elseif ui == "exec" then REP.Init()
+        end
     end
-end
-
-function DBGetSub(name)
-    
 end
 
 function DBSetup()
@@ -43,10 +43,10 @@ function DBSetup()
     DBLoc.scan = {}
     DBLoc.rep = {}
     for i = 1,9,1 do 
-        temp = db.get(i)["name"]
-        if temp == "minecraft:paper" then
+        temp = db.get(i);
+        if temp ~= nil and temp["name"] == "minecraft:paper" then
             dbtemp = nil
-            local counter = 0
+            local counter = 1
             for i,d in string.gmatch(temp["label"], "%S+") do 
                 if dbtemp == nil then
                     if i == "pat" then
@@ -56,30 +56,28 @@ function DBSetup()
                     elseif i == "rep" then
                         dbtemp = DBLoc.rep;
                     end
+                else
+                    dbtemp[counter] = i;
+                    counter = counter + 1;
                 end
-                dbtemp["test"] = i;
-                counter = counter + 1;
             end
             dbtemp = nil
         end 
     end
     print(DBLoc)
-end
-    
-RepApp.Conf.ReplicatorPos = AskLocation(RepNames.ic2rep)
-RepApp.Conf.SearchInvPos = AskLocation(RepNames.chest)
+    RepApp.Conf.ReplicatorPos = DBLoc.rep
+    RepApp.Conf.ScannerPos = DBLoc.scan
+    RepApp.Conf.PatternPos = DBLoc.pat
 end
 
 function Setup()
     RepApp.Conf.ReplicatorPos = AskLocation(RepNames.ic2rep)
-    RepApp.Conf.SearchInvPos = AskLocation(RepNames.chest)
+    RepApp.Conf.PatternPos = AskLocation(RepNames.ic2pat)
     
-    if RepApp.Conf.ReplicatorPos == nil or RepApp.Conf.SearchInvPos == nil then
-        io.write("Couldn't find Replicator or Search Chest. \n");
+    if RepApp.Conf.ReplicatorPos == nil or RepApp.Conf.PatternPos == nil then
+        print("Couldn't find Replicator or Pattern Storage. \n");
         return
     end
-
-    tsave.save(RepApp.Conf, "config.table");
 end
 
 function AskLocation(ask)
@@ -115,10 +113,16 @@ function VerifyTEPos(ask, x, y, z)
     return false;
 end
 
+-- Block Location Serialisation
 function RepApp.LoadLocations()
     tsave.load(RepApp.Conf, "config.table")
 end
 
+function RepApp.SaveLocations()
+    tsave.save(RepApp.Conf, "config.table");
+end
+
+-- Pattern Serialisation
 function RepApp.LoadPatterns()
     repBlockNames = tsave.load("replications.table");
     return repBlockNames;
@@ -127,19 +131,6 @@ end
 function RepApp.SaveLoadPatterns()
     tsave.save(repBlockNames, "replications.table");
 end
-
-function RepApp.ChestGetAddBlocks() 
-    -- asd
-end
--- Load table
-
--- Get items in the chest
--- Loop over items in chest 
--- Get their data: unlocalised name and metadata (called Damage in replicator)
--- Add them to repBlockNames where localised name is key and data is value
-
--- Save table
-
 
 function RepApp.AddBlock(blockName, repData)
     Load();

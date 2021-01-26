@@ -6,24 +6,19 @@ Replication = {}
 Replication.patterns = {}
 Replication.repPos = {}
 Replication.patPos = {}
-Replication.
-local ie_hf = {"immersiveengineering:metal_decoration0", 5, 2}; 
-local te_f = {"thermalexpansion:frame", 0, 0};
+
+--local ie_hf = {"immersiveengineering:metal_decoration0", 5, 2}; 
+--local te_f = {"thermalexpansion:frame", 0, 0};
 
 patterns = {}
 
-rep_pos = {130, 63, -844}
-pstr_pos = {131, 63, -844}
-nbt = world.getTileNBT(rep_pos[1],rep_pos[2], rep_pos[3]);
-
-local swap = ie_hf;
-
-
 function Init()
-    if nbt.value.id.value ~= ic2repID then return end
+    Replication.patPos = main.RepApp.Conf.PatternPos
+    FindPatterns()
 
-
-    
+    for i, d in pairs(patterns) do
+        print(i);
+    end
 end
 
 function ClearPatterns()
@@ -31,10 +26,10 @@ function ClearPatterns()
         patterns[k] = nil
     end
 end
- -- pnbt = component.debug.getWorld().getTileNBT(pstr_pos[1],pstr_pos[2], pstr_pos[3])
-function GetPatterns()
+
+function FindPatterns()
     ClearPatterns();
-    local pnbt = world.getTileNBT(pstr_pos[1],pstr_pos[2], pstr_pos[3]);
+    local pnbt = world.getTileNBT(Replication.patPos[1]), Replication.patPos[2], Replication.patPos[3]);
 
     for i = 1,pnbt.value.patterns.value.n do
         val = pnbt.value.patterns.value[i].value
@@ -50,11 +45,3 @@ function SetReplicator(pat)
     nbt.value.index.value = swap[3];
     world.setTileNBT(-105, 91, 64, tNBT);
 end
-
-
-
-
--- nbt = component.debug.getWorld().getTileNBT(130, 63, -844);
--- pnbt = component.debug.getWorld().getTileNBT(131, 63, -844);
-
--- component.debug.getWorld().setTileNBT(130 63 -844, nbt);
