@@ -14,11 +14,11 @@ repBlockNames = {}
 
 
 function Main()
-    io.write("Welcome to the Replicator Interface ;)")
+    io.write("Welcome to the Replicator Interface ;)\n")
 
-    io.write("setup -- you will need to setup the position of the machines before anything else.")
-    io.write("exec -- run the main program.")
-    io.write("show -- prints the configs")
+    io.write("setup -- you will need to setup the position of the machines before anything else.\n")
+    io.write("exec -- run the main program.\n")
+    io.write("show -- prints the configs\n")
     local ui = io.read();
 
     if ui == "setup" then Setup();
@@ -31,7 +31,7 @@ function Setup()
     RepApp.Conf.SearchInvPos = AskLocation("minecraft:chest")
     
     if RepApp.Conf.ReplicatorPos == nil or RepApp.Conf.SearchInvPos == nil then
-        io.write("Couldn't find Replicator or Search Chest");
+        io.write("Couldn't find Replicator or Search Chest. \n");
         return
     end
 
@@ -39,7 +39,7 @@ function Setup()
 end
 
 function AskLocation(ask)
-    io.write(ask.." location couldn't be verified, TRY:"..tryCount.."/4 Please input X Y Z");
+    io.write(ask.." location couldn't be verified. INPUT: X Y Z");
     local rd = io.read();
     local rep_pos = string.gmatch(rd,"%S+");
     if tablelength(rep_pos) >= 3 then
