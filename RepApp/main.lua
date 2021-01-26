@@ -1,10 +1,13 @@
 local world = program.rep_world
 main = {}
-main.RepNames = {}
+
+local RepNames = {}
+RepNames.ic2rep = {}
+RepNames.ic2pat = {}
 RepNames.ic2rep = "ic2:replicator";
 RepNames.ic2pat = "ic2:pattern_storage";
 
-main.RepApp = {}
+local RepApp = {}
 
 RepApp.isSafe = false;
 RepApp.init = false;
@@ -14,9 +17,15 @@ RepApp.Conf.ReplicatorPos = nil
 RepApp.Conf.ScannerPos = nil
 RepApp.Conf.PatternPos = nil
 
-repBlockNames = {}
+local repBlockNames = {}
 
-function main.Main()
+main.RepApp = RepApp;
+main.Main = Main
+main.DBSetup = DBSetup
+main.Setup = Setup
+
+
+local function Main()
     print("Welcome to the Replicator Interface ;)\n")
 
     print("quick -- setup alt: use the attached database (first 9 slots only) to load positions")
@@ -32,7 +41,7 @@ function main.Main()
     end
 end
 
-function main.DBSetup()
+local function DBSetup()
     DBLoc = {}
     DBLoc.pat = {}
     DBLoc.scan = {}
@@ -65,7 +74,7 @@ function main.DBSetup()
     RepApp.Conf.PatternPos = DBLoc.pat
 end
 
-function main.Setup()
+local function Setup()
     RepApp.Conf.ReplicatorPos = AskLocation(RepNames.ic2rep)
     RepApp.Conf.PatternPos = AskLocation(RepNames.ic2pat)
     
@@ -75,7 +84,7 @@ function main.Setup()
     end
 end
 
-function main.AskLocation(ask)
+local function AskLocation(ask)
     print(ask.." location couldn't be verified. \nINPUT: X Y Z\n");
     local rd = io.read();
     local rep_pos = {}
@@ -95,7 +104,7 @@ function main.AskLocation(ask)
     return nil
 end
 
-function main.VerifyTEPos(ask, x, y, z)
+local function VerifyTEPos(ask, x, y, z)
     if world.hasTileEntity(x, y, z) == false then
         return false
     end
@@ -109,31 +118,31 @@ function main.VerifyTEPos(ask, x, y, z)
 end
 
 -- Block Location Serialisation
-function main.RepApp.LoadLocations()
+local function RepApp.LoadLocations()
     tsave.load(RepApp.Conf, "config.table")
 end
 
-function main.RepApp.SaveLocations()
+local function RepApp.SaveLocations()
     tsave.save(RepApp.Conf, "config.table");
 end
 
 -- Pattern Serialisation
-function main.RepApp.LoadPatterns()
+local function RepApp.LoadPatterns()
     repBlockNames = tsave.load("replications.table");
     return repBlockNames;
 end
 
-function main.RepApp.SaveLoadPatterns()
+function RepApp.SaveLoadPatterns()
     tsave.save(repBlockNames, "replications.table");
 end
 
-function main.RepApp.AddBlock(blockName, repData)
+local function RepApp.AddBlock(blockName, repData)
     Load();
     repBlockNames[blockName] = repData;
     Save();
 end
 
-function main.tablelength(T)
+local function tablelength(T)
     local count = 0
     for _ in pairs(T) do 
         count = count + 1 
