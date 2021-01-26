@@ -59,7 +59,7 @@ function main.DBSetup()
                         dbtemp = DBLoc.rep;
                     end
                 else
-                    dbtemp[counter] = i;
+                    dbtemp[counter] = tonumber(i);
                     counter = counter + 1;
                 end
             end

@@ -15,11 +15,15 @@ local patterns = {}
 
 function this.Init()
     replication.patPos = program.rep_main.RepApp.Conf.PatternPos
-    FindPatterns()
+    this.FindPatterns()
 
+    print("Select the pattern to change to Replicator to")
     for i, d in pairs(patterns) do
-        print(i);
+        print(i.." > "..patterns[i].tab[1]);
     end
+    local sel = io.read()
+
+    this.SetReplicator(patterns[sel])
 end
 
 function this.ClearPatterns()
@@ -29,7 +33,7 @@ function this.ClearPatterns()
 end
 
 function this.FindPatterns()
-    ClearPatterns();
+    this.ClearPatterns();
     local pnbt = world.getTileNBT(replication.patPos[1], replication.patPos[2], replication.patPos[3]);
 
     for i = 1,pnbt.value.patterns.value.n do
@@ -41,10 +45,11 @@ function this.FindPatterns()
 end
 
 function this.SetReplicator(pat)
-    nbt.value.pattern.value.id.value = swap[1];
-    nbt.value.pattern.value.Damage.value = swap[2];
-    nbt.value.index.value = swap[3];
-    world.setTileNBT(-105, 91, 64, tNBT);
+    local nbt = world.getTileNBT(replication.repPos[1], replication.repPos[2], replication.repPos[3]);
+    nbt.value.pattern.value.id.value = pat[1];
+    nbt.value.pattern.value.Damage.value = pat[1]
+    nbt.value.index.value = pat[3];
+    world.setTileNBT(-105, 91, 64, nbt);
 end
 
 
