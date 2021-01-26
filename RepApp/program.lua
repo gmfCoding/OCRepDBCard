@@ -7,13 +7,11 @@ local rep_db = component.database;
 local rep_debug = component.debug;
 local rep_world = component.debug.getWorld();
 
-
 program.tsave = tsave;
 program.component = component;
 program.rep_db = rep_db;
 program.rep_debug = rep_debug;
 program.rep_world = rep_world;
-
 
 
 local rep_main = require("main")

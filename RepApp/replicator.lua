@@ -15,11 +15,12 @@ local patterns = {}
 
 function this.Init()
     replication.patPos = program.rep_main.RepApp.Conf.PatternPos
+    replication.repPos = program.rep_main.RepApp.Conf.ReplicatorPos
     this.FindPatterns()
 
     print("Select the pattern to change to Replicator to")
     for i, d in pairs(patterns) do
-        print(i.." > "..patterns[i].tab[1]);
+        print(i.." > "..patterns[i][1]);
     end
     local sel = io.read()
 
@@ -40,7 +41,7 @@ function this.FindPatterns()
         val = pnbt.value.patterns.value[i].value
         tab = {val.id.value, val.Damage.value, i-1}
         print(tab[1])
-        table.insert(patterns, 1, tab)
+        table.insert(patterns, 1, tab);
     end
 end
 

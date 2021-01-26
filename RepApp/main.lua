@@ -45,12 +45,13 @@ function main.DBSetup()
     DBLoc.pat = {}
     DBLoc.scan = {}
     DBLoc.rep = {}
+    print("Getting the locations of the machines!")
     for i = 1,9,1 do 
         temp = db.get(i);
         if temp ~= nil and temp["name"] == "minecraft:paper" then
             dbtemp = nil
             local counter = 1
-            for i,d in string.gmatch(temp["label"], "%S+") do 
+            for i,d in string.gmatch(temp["label"], "%S+") do
                 if dbtemp == nil then
                     if i == "pat" then
                         dbtemp = DBLoc.pat;
@@ -67,7 +68,7 @@ function main.DBSetup()
             dbtemp = nil
         end 
     end
-    print(DBLoc)
+
     RepApp.Conf.ReplicatorPos = DBLoc.rep
     RepApp.Conf.ScannerPos = DBLoc.scan
     RepApp.Conf.PatternPos = DBLoc.pat
@@ -103,7 +104,7 @@ function main.AskLocation(ask)
     return nil
 end
 
-local function VerifyTEPos(ask, x, y, z)
+function VerifyTEPos(ask, x, y, z)
     if world.hasTileEntity(x, y, z) == false then
         return false
     end
