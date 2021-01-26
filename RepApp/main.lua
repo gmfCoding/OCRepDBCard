@@ -57,11 +57,11 @@ function AskLocation(ask)
 end
 
 function VerifyTEPos(ask, x, y, z)
-    if ~world.hasTileEntity(x, y, z) then
+    if world.hasTileEntity(x, y, z) == false then
         return false
     end
 
-    local bName = world.getTileNBT(x, y, z);
+    local bName = world.getTileNBT(x, y, z).value.id.value;
 
     if bName == ask then
         return true;
