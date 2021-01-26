@@ -1,4 +1,4 @@
-mainmod = require("main")
+mainmod = require("program")
 repmod = require("replicator")
 
 mainmod.Main();
