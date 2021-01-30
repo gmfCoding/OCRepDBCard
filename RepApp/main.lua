@@ -18,7 +18,7 @@ RepApp.Conf = {}
 RepApp.Conf.ReplicatorPos = nil
 RepApp.Conf.ScannerPos = nil
 RepApp.Conf.PatternPos = nil
-
+RepApp.Conf.UUInv = nil
 local repBlockNames = {}
 
 function main.Main()

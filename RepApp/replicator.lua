@@ -7,6 +7,7 @@ local replication = {}
 replication.patterns = {}
 replication.repPos = {}
 replication.patPos = {}
+replication.patPos = {}
 
 --local ie_hf = {"immersiveengineering:metal_decoration0", 5, 2}; 
 --local te_f = {"thermalexpansion:frame", 0, 0};
@@ -24,7 +25,7 @@ function this.Init()
     end
     local sel = io.read()
 
-    this.SetReplicator(patterns[sel])
+    this.SetReplicator(patterns[tonumber(sel)])
 end
 
 function this.ClearPatterns()
@@ -32,6 +33,9 @@ function this.ClearPatterns()
         patterns[k] = nil
     end
 end
+
+function get_rep_nbt() return world.getTileNBT(replication.repPos[1], replication.repPos[2], replication.repPos[3]); end
+function get_scan_nbt() return world.getTileNBT(replication.repPos, replication.patPos[2], replication.patPos[3]); end
 
 function this.FindPatterns()
     this.ClearPatterns();
@@ -48,9 +52,9 @@ end
 function this.SetReplicator(pat)
     local nbt = world.getTileNBT(replication.repPos[1], replication.repPos[2], replication.repPos[3]);
     nbt.value.pattern.value.id.value = pat[1];
-    nbt.value.pattern.value.Damage.value = pat[1]
+    nbt.value.pattern.value.Damage.value = pat[2]
     nbt.value.index.value = pat[3];
-    world.setTileNBT(-105, 91, 64, nbt);
+    world.setTileNBT(replication.repPos[1], replication.repPos[2], replication.repPos[3], nbt);
 end
 
 
